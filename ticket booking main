@@ -1,0 +1,46 @@
+package demo;
+
+import java.util.ArrayList; import java.time.LocalTime; import java.util.List;
+import java.util.Scanner;
+
+
+public class Bookticket {
+
+
+List<Flight> flights; List<Ticket> tickets;
+
+public Bookticket() {
+
+flights = new ArrayList<Flight>(); tickets = new ArrayList<Ticket>();
+
+}
+
+
+public void createFlights() { 
+int FN, c;
+double op;
+
+String origin, destination, dt;
+
+Scanner scan = new Scanner(System.in);
+ 
+System.out.println("Enter your password:"); String pass=scan.next();
+if(pass.equals("Sreeja21")==true || pass.equals("Sow25")) { System.out.println("Enter flight Number");
+FN = scan.nextInt();
+
+System.out.println("Enter flight Starting point"); origin = scan.next();
+System.out.println("Enter flight destination"); destination = scan.next();
+System.out.println("Enter flight departure time and date"); dt = scan.next();
+System.out.println("Enter flight capacity"); c = scan.nextInt();
+System.out.println("Enter original price of ticket"); op = scan.nextDouble();
+Flight F = new Flight(FN, origin, destination, dt, c, op); flights.add(F);
+System.out.println("The following flight has been created:"); System.out.println(F);
+}
+
+else {
+
+System.out.println("Your password is wrong");
+
+}
+
+}
