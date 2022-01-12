@@ -1,0 +1,342 @@
+public static void main(String[] args) { Bookticket M = new Bookticket(); Flight F;
+Passenger P;
+
+System.out.println("***WELCOME TO AIRBUS***");
+
+System.out.println("Book your tickets with membership and get amazing discounts");
+Scanner scan1 = new Scanner(System.in); Scanner scan2 = new Scanner(System.in); String destination, origin, name;
+int FN, age, years; boolean flag = false;
+
+while (flag != true) {
+
+System.out.println("Enter 1 to create a flight(admin only)");
+
+System.out.println("Enter 2 to display available flights(using startingpoint and Destination)");
+System.out.println("Enter 3 to get information on a flight(Using Flightnumber)");
+System.out.println("Enter 4 to book a seat"); System.out.println("Enter 5 to exit");
+int inputs = scan1.nextInt(); switch (inputs) {
+case 1:
+
+M.createFlights(); break;
+ 
+case 2:
+
+System.out.println("Enter flight Startingpoint"); origin = scan1.next();
+System.out.println("Enter flight destination"); destination = scan1.next(); M.displayAvailableFlights(origin, destination); break;
+case 3:
+System.out.println("Enter Flight number"); FN = scan2.nextInt();
+F = M.getFlight(FN); if (F == null) {
+System.out.println("Flight " + FN + " does not exist");
+
+} else {
+
+System.out.println("Info for Flight " + FN + ":"); System.out.println(F);
+}
+
+break; case 4:
+System.out.println("If passenger is non memeber enter n, if passenger is a member enter m");
+String input = scan1.next(); System.out.println("Enter passengers age"); age = scan2.nextInt(); System.out.println("Enter passengers name");
+ 
+name = scan1.next(); System.out.println("Enter flight number"); FN = scan2.nextInt();
+
+if (input.equals("n") == true) {
+
+P = new NonMember(age, name); M.bookSeat(FN, P);
+} else if (input.equals("m") == true) {
+
+System.out.println("For how many years has the passenger been a member");
+years = scan2.nextInt();
+
+P = new Member(years, age, name); M.bookSeat(FN, P);
+
+}
+
+break; case 5:
+flag = true;
+
+System.out.println("Thank You for visiting this site"); break;
+default:
+
+System.out.println("You entered an invalid option"); break;
+
+}
+ 
+
+}
+
+
+
+}
+
+
+}
+
+//Flight Class package demo;
+
+public class Flight {
+
+private int flightNumber; private String origin;
+private String destination; private String departureTime; private int capacity;
+private int numberOfSeatsleft; private double originalPrice;
+
+public Flight(int fn, String o, String ds, String dp, int c, double op) { if (ds.equals(o) == true) {
+throw new IllegalArgumentException("destination and origin are the same");
+}
+
+flightNumber = fn; origin = o;
+ 
+destination = ds; departureTime = dp; capacity = c; numberOfSeatsleft = c; originalPrice = op;
+}
+
+
+
+public boolean bookASeat() { if (numberOfSeatsleft > 0) {
+numberOfSeatsleft = numberOfSeatsleft - 1; return true;
+
+
+}
+
+return false;
+
+}
+
+
+
+public double getPrice() { return originalPrice;
+}
+
+
+public String getOrigin() { return origin;
+}
+
+
+public String getDestination() {
+ 
+return destination;
+
+}
+
+
+
+public String getDepartureTime() { return departureTime;
+}
+
+
+public int getFlightNumber() { return flightNumber;
+}
+
+
+public int getNumberOfSeatsleft() { return numberOfSeatsleft;
+}
+
+
+public int getCapacity() { return capacity;
+}
+
+
+public void setPrice(double p) { originalPrice = p;
+}
+
+
+public void setOrigin(String o) { origin = o;
+ 
+}
+
+
+public void setDestination(String d) { destination = d;
+}
+
+
+public void setDepartureTime(String d) { departureTime = d;
+}
+
+
+public void setFlightNumber(int fn) { flightNumber = fn;
+}
+
+
+public void setNumberOfSeatsleft(int s) { numberOfSeatsleft = s;
+}
+
+
+public void setCapacity(int c) { capacity = c;
+}
+
+
+@Override
+
+public String toString() {
+
+String one = "Flight " + flightNumber+"\n";
+ 
+String two = origin + " to " + destination+"\n"; String three = departureTime+"\n";
+String four = "original price: " + originalPrice + "$"+"\n"; return one + two + three + four;
+}
+
+
+
+}
+
+//Passenger Class package demo;
+
+public abstract class Passenger {
+
+
+String name; int age;
+
+public Passenger(int a, String n) { name = n;
+age = a;
+
+
+}
+
+public String getName(){ return name;
+}
+
+public int getAge(){ return age;
+ 
+}
+
+abstract public double applyDiscount(double p);
+
+
+
+
+
+}
+
+
+//Member Class package demo;
+
+public class Member extends Passenger {
+
+
+private int yearsOfMembership;
+
+
+public Member(int yom, int a, String n) { super(a, n);
+yearsOfMembership = yom;
+
+
+}
+
+
+@Override
+
+public double applyDiscount(double p) { if (yearsOfMembership > 5) {
+p = p / 2; return p;
+ 
+} else if (yearsOfMembership <= 5 && yearsOfMembership > 1)
+{
+
+p = (p *9)/10; return p;
+}
+
+return p;
+
+
+
+}
+
+
+
+}
+
+
+//Non-member Class package demo;
+
+public class NonMember extends Passenger {
+
+
+public NonMember(int a, String n) { super(a, n);
+}
+
+
+@Override
+
+public double applyDiscount(double p) { if (age > 65) {
+p = (p *9)/10; return p;
+ 
+}
+
+return p;
+
+}
+
+
+
+}
+
+//Ticket Class package demo;
+
+public class Ticket {
+
+
+private Flight flight; private Passenger passenger; private double price;
+private int number;
+
+private static int count = 0;
+
+
+public Ticket(Flight f, Passenger pa, double pr) { count++;
+flight = f; passenger = pa; price = pr; number = count;
+
+
+
+}
+ 
+
+@Override
+
+public String toString() {
+
+String one = passenger.getName()+"\n" + "Flight " + flight.getFlightNumber();
+String two = "\n" + flight.getOrigin() + " to " + flight.getDestination();
+String three = "\n" + flight.getDepartureTime();
+
+String four = "\noriginal price: " + flight.getPrice() + "$"; String five = "\nticket price: " + price + "$";
+return one + two + three + four + five;
+
+}
+
+
+public Flight getFlight() { return flight;
+}
+
+public void setFlight(Flight F) { flight=F;
+}
+
+public Passenger getPassenger() { return passenger;
+}
+
+public void setPassenger(Passenger P) { passenger=P;
+}
+
+public double getPrice() {
+ 
+return price;
+
+}
+
+public void setPrice(double P) { price=P;
+}
+
+public int getNumber() { return number;
+}
+
+public void setNumber(int n) { number=n;
+}
+
+public int getCount() { return count;
+}
+
+public void setCount(int n) { count=n;
+}
+
+
+
+
+
+
+
+}
