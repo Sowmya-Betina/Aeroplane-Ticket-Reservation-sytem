@@ -1,0 +1,13 @@
+public Flight getFlight(int flightNumber) { int size = flights.size();
+for (int i = 0; i < size; i++) {
+
+if (flights.get(i).getFlightNumber() == flightNumber) { return flights.get(i);
+}
+
+
+
+}
+
+return null;
+
+}
