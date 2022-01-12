@@ -1,0 +1,48 @@
+public void bookSeat(int flightNumber, Passenger p) { int size = flights.size();
+boolean flag = false; int index = 0, seats;
+for (int i = 0; i < size; i++) {
+
+if (flights.get(i).getFlightNumber() == flightNumber) { flag = true;
+index = i; break;
+}
+
+
+}
+
+double price;
+ 
+seats = flights.get(index).getNumberOfSeatsleft(); if (flag == true && (seats > 0)) {
+flights.get(index).bookASeat();
+
+price = p.applyDiscount(flights.get(index).getPrice()); Ticket a = new Ticket(flights.get(index), p, price); tickets.add(a);
+System.out.println("you have succesfully booked a seat for flight " + flightNumber);
+System.out.println("ticket: " + a); LocalTime my=LocalTime.now(); System.out.println(my);
+
+
+
+} else {
+
+if (flag == true && seats == 0) {
+
+System.out.println("The Flight " + flightNumber + " is full you cannot book a ticket for this flight");
+
+
+ 
+
+
+
+exist");
+ 
+
+} else if (flag == false) {
+
+System.out.println("The Flight " + flightNumber + " does not
+ 
+
+}
+
+}
+
+
+
+}
