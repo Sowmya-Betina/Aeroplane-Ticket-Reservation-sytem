@@ -72,34 +72,6 @@ System.out.println("You entered an invalid option"); break;
 }
 
 
-//Passenger Class package demo;
-
-public abstract class Passenger {
-
-
-String name; int age;
-
-public Passenger(int a, String n) { name = n;
-age = a;
-
-
-}
-
-public String getName(){ return name;
-}
-
-public int getAge(){ return age;
- 
-}
-
-abstract public double applyDiscount(double p);
-
-
-
-
-
-}
-
 
 //Member Class package demo;
 
