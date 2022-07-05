@@ -1,7 +1,7 @@
 public static void main(String[] args) { Bookticket M = new Bookticket(); Flight F;
 Passenger P;
 
-System.out.println("***WELCOME TO AIRBUS***");
+System.out.println("***WELCOME TO OUR AIRBUS SYSTEM***");
 
 System.out.println("Book your tickets with membership and get amazing discounts");
 Scanner scan1 = new Scanner(System.in); Scanner scan2 = new Scanner(System.in); String destination, origin, name;
